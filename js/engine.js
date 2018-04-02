@@ -8,7 +8,14 @@
 
  * 这个引擎使画布的上下文(CTX)对象全局可用，从而使编写app.js更加简单。
  */
-
+var checkCollisions = function() {
+    allEnemies.forEach(function(enemy){
+        if (enemy.y == player.y) {
+            alert('you win!');
+            player.y = 4*height-delta;
+        }
+    });
+}
 var Engine = (function(global) {
     /* 实现定义我们会在这个作用于用到的变量
      * 创建 canvas 元素，拿到对应的 2D 上下文
