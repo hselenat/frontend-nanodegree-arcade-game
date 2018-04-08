@@ -8,14 +8,7 @@
 
  * 这个引擎使画布的上下文(CTX)对象全局可用，从而使编写app.js更加简单。
  */
-var checkCollisions = function() {
-    allEnemies.forEach(function(enemy){
-        if (enemy.y == player.y) {
-            alert('you win!');
-            player.y = 4*height-delta;
-        }
-    });
-}
+
 var Engine = (function(global) {
     /* 实现定义我们会在这个作用于用到的变量
      * 创建 canvas 元素，拿到对应的 2D 上下文
@@ -71,7 +64,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* 这个函数会遍历在 app.js 定义的存放所有敌人实例的数组，并且调用他们的 update()
@@ -84,7 +77,16 @@ var Engine = (function(global) {
         });
         player.update();
     }
-
+    function checkCollisions() {
+        allEnemies.forEach(function (enemy) {
+            if (Math.abs(player.x - enemy.x) < 81 && player.y === enemy.y) {
+                init();
+            }
+            if (player.y === 0) {
+                init();
+            }
+        });
+    }
     /* 这个函数做了一些游戏的初始渲染，然后调用 renderEntities 函数。记住，这个函数
      * 在每个游戏的时间间隙都会被调用一次（或者说游戏引擎的每个循环），因为这就是游戏
      * 怎么工作的，他们就像是那种每一页上都画着不同画儿的书，快速翻动的时候就会出现是
@@ -136,6 +138,10 @@ var Engine = (function(global) {
      */
     function reset() {
         // 空操作
+        allEnemies.forEach(function (enemy) {
+            enemy.init();
+        });
+        player.init();
     }
 
     /* 紧接着我们来加载我们知道的需要来绘制我们游戏关卡的图片。然后把 init 方法设置为回调函数。
