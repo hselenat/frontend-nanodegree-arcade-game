@@ -83,7 +83,8 @@ var Engine = (function(global) {
                 init();
             }
             if (player.y === 0) {
-                init();
+                $('canvas').hide();
+                $(".win").show();
             }
         });
     }

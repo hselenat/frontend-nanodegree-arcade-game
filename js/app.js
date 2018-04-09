@@ -6,8 +6,8 @@ var Enemy = function() {
     // 要应用到每个敌人的实例的变量写在这里
     // 我们已经提供了一个来帮助你实现更多
     this.x = 0;
-    this.y = -delta;
-    this.speed = 2000;
+    this.y = -delta
+    this.speed = 200;
     // 敌人的图片，用一个我们提供的工具函数来轻松的加载文件
     this.sprite = 'images/enemy-bug.png';
 };
@@ -17,9 +17,10 @@ var Enemy = function() {
 Enemy.prototype.update = function(dt) {
     // 你应该给每一次的移动都乘以 dt 参数，以此来保证游戏在所有的电脑上
     // 都是以同样的速度运行的
-    this.x = this.x + this.speed*dt;
-    if (this.x > 4 *width) {
+    if (this.x > 4 * width) {
         this.x = 0;
+    } else {
+        this.x = this.x + this.speed * dt;
     }
 };
 
@@ -29,17 +30,17 @@ Enemy.prototype.render = function() {
 };
 Enemy.prototype.init = function () {
     this.x = -101;
-    this.moving = false;
-    this.speed = Math.floor(Math.random() + 0.5 * 7);
+    this.y = height - delta;
+    this.speed = Math.floor((Math.random() * 100) + 100);
 };
 // 现在实现你自己的玩家类
-var player = function () {
+var Player = function () {
     this.x =2*width;
     this.y =4*height-delta;
     this.sprite = 'images/char-cat-girl.png';
 }
 // 这个类需要一个 update() 函数，更新数据
-player.prototype.update = function () {
+Player.prototype.update = function () {
     if (this.x > 4 * width) {
         this.x = 4 * width;
     }
@@ -47,18 +48,18 @@ player.prototype.update = function () {
         this.x = 0;
     }
     if (this.y > 5 * height) {
-        this.y = 4 * height - delta;
+        this.y = 4 * height - delta;S
     }
     if (this.y < 0 * height - delta) {
         this.y = 0;
     }
 };
 //render() 函数，渲染画布
-player.prototype.render = function () {
+Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 //handleInput()函数
-player.prototype.handleInput = function (direction) {
+Player.prototype.handleInput = function (direction) {
     switch (direction) {
         case 'left':
             this.x = this.x - width;
@@ -74,11 +75,14 @@ player.prototype.handleInput = function (direction) {
             break;
     }
 };
-player.prototype.init = function () {
+
+Player.prototype.init = function () {
     this.x = 2 * width;
     this.y = 4 * height - delta;
 }
 // 现在实例化你的所有对象
+// 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
+// 把玩家对象放进一个叫 player 的变量里面
 var allEnemies = [
     new Enemy(0),
     new Enemy(1),
@@ -86,10 +90,7 @@ var allEnemies = [
     new Enemy(3),
     new Enemy(4)
 ];
-// 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
-allEnemies.push(new Enemy());
-// 把玩家对象放进一个叫 player 的变量里面
-var player = new player();
+var player = new Player();
 
 // 这段代码监听游戏玩家的键盘点击事件并且代表将按键的关键数字送到 Player.handleInput()
 // 方法里面。你不需要再更改这段代码了。
