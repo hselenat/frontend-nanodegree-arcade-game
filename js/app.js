@@ -2,12 +2,12 @@ var delta = -60;
 var width = 101;
 var height= 80;
 // 这是我们的玩家要躲避的敌人
-var Enemy = function() {
+var Enemy = function(row) {
     // 要应用到每个敌人的实例的变量写在这里
     // 我们已经提供了一个来帮助你实现更多
     this.x = 0;
-    this.y = -delta
-    this.speed = 200;
+    this.y = row * height - delta;
+    this.speed = Math.floor((Math.random() * 200) + 100);
     // 敌人的图片，用一个我们提供的工具函数来轻松的加载文件
     this.sprite = 'images/enemy-bug.png';
 };
@@ -17,8 +17,9 @@ var Enemy = function() {
 Enemy.prototype.update = function(dt) {
     // 你应该给每一次的移动都乘以 dt 参数，以此来保证游戏在所有的电脑上
     // 都是以同样的速度运行的
-    if (this.x > 4 * width) {
-        this.x = 0;
+    if (this.x > 5 * width) {
+        this.x = -101;
+        this.speed = Math.floor((Math.random() * 200) + 100);
     } else {
         this.x = this.x + this.speed * dt;
     }
@@ -30,8 +31,8 @@ Enemy.prototype.render = function() {
 };
 Enemy.prototype.init = function () {
     this.x = -101;
-    this.y = height - delta;
-    this.speed = Math.floor((Math.random() * 100) + 100);
+    this.y = this.y;
+    this.speed = Math.floor((Math.random() * 200) + 100);
 };
 // 现在实现你自己的玩家类
 var Player = function () {
@@ -48,7 +49,7 @@ Player.prototype.update = function () {
         this.x = 0;
     }
     if (this.y > 5 * height) {
-        this.y = 4 * height - delta;S
+        this.y = 4 * height - delta;
     }
     if (this.y < 0 * height - delta) {
         this.y = 0;
@@ -86,9 +87,7 @@ Player.prototype.init = function () {
 var allEnemies = [
     new Enemy(0),
     new Enemy(1),
-    new Enemy(2),
-    new Enemy(3),
-    new Enemy(4)
+    new Enemy(2)
 ];
 var player = new Player();
 

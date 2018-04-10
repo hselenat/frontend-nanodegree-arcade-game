@@ -1,25 +1,29 @@
 body {
     text-align: center;
+    position:relative;
 }
 .win {
+    position: absolute;
     margin: 0 auto;
-    margin-top: 150px;
-    padding: 50px 0;
+    left: 50%;
+    margin-left: -125px;
+    margin-top: 180px;
+    padding: 25px 0;
     width: 100%;
-    max-width: 660px;
+    max-width: 250px;
     text-align: center;
     background: #fff;
-    border: 15px solid #3aab88;
-    border-radius: 60px;
+    border: 2px solid #3aab88;
+    border-radius: 20px;
 }
 
 .again {
-    border: 1px solid #20bfbe;
-    background-color: #fff;
+    border: 1px solid #1b9a99;
+    background-color: #1b9a99;
     line-height: 2;
     border-radius: 8px;
     padding: 10px 30px;
     outline: none;
     cursor: pointer;
-    color: #1b9a99;
+    color: #fff;
 }
