@@ -34,6 +34,7 @@ Enemy.prototype.init = function () {
     this.y = this.y;
     this.speed = Math.floor((Math.random() * 200) + 100);
 };
+
 // 现在实现你自己的玩家类
 var Player = function () {
     this.x =2*width;

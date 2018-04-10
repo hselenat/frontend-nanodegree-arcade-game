@@ -64,7 +64,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        checkCollisions();
+        //checkCollisions();
     }
 
     /* 这个函数会遍历在 app.js 定义的存放所有敌人实例的数组，并且调用他们的 update()
@@ -85,7 +85,12 @@ var Engine = (function(global) {
             if (player.y === 0) {
                 //$('canvas').hide();
                 $(".win").show();
-                this.speed = 0;
+                //让敌人的速度变为0，从而静止
+                allEnemies.forEach(function(enemy) {
+                    enemy.speed = 0;
+                });
+                //让玩家的handleInput()函数为空，从而不处理按键，进而静止
+                Player.prototype.handleInput = function (e) { };
             }
         });
     }
@@ -120,6 +125,7 @@ var Engine = (function(global) {
         }
 
         renderEntities();
+        checkCollisions();
     }
 
     /* 这个函数会在每个时间间隙被 render 函数调用。他的目的是分别调用你在 enemy 和 player
